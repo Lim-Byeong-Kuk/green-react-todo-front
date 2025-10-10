@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var list = [];
+
+      const a1 = (i, j) => i * j;
+      const b1 = (i, j) => i + j;
+
+      var data = {
+        a1: [
+          [10, 20, 30, 40],
+          [1, 2, 3, 4],
+        ],
+        b1: [
+          [23, 56, 78, 98],
+          [-1, -2, -3, -4],
+        ],
+      };
+      const fnList = [a1, b1];
+      //마지막 문제 fnList 에서 하나씩 꺼내어 data 객체의 a1 배열의 값은 a1함수에 적용하고
+      //b1 배열은 b1 함수에 적용함
+      //a1 배열은 2차원 배열이고 a1 함수에 전달시 a1의 첫번째 인자로는 2차원 배열의
+      //0행 , 두번째 인자로는 1행의 각각의 원소를 전달하여 반복한 결과의 총합을 구하세요
+
+      // 단순한 풀이1
+      let sumA1 = 0;
+      let sumB1 = 0;
+
+      for (let i = 0; i < 4; i++) {
+        sumA1 += fnList[0](data.a1[0][i], data.a1[1][i]);
+        sumB1 += fnList[1](data.b1[0][i], data.b1[1][i]);
+      }
+      console.log("sumA1", sumA1);
+      console.log("sumB1", sumB1);
+      console.log("sumA1+sumB1", sumA1 + sumB1);
+
+      // key 이용 단순한 풀이2
+      const keys = Object.keys(data);
+      console.log(keys);
+      console.log(keys[0]);
+
+      let sumA11 = 0;
+      let sumB11 = 0;
+      for (let i = 0; i < 4; i++) {
+        sumA11 += fnList[0](data[keys[0]][0][i], data[keys[0]][1][i]);
+        sumB11 += fnList[1](data[keys[1]][0][i], data[keys[1]][1][i]);
+      }
+      console.log("sumA11", sumA11);
+      console.log("sumB11", sumB11);
+
+      // reduce 이용
+      let sumA111 = 0;
+      let sumB111 = 0;
+
+      // let result1 = keys.reduce((acc, key) => {
+
+      //   [0,1,2,3].reduce((acc, i) => fnList   )
+
+      // },0)
+
+      // const g = ["a1", "b1"];
+
+      // const result = fnList.reduce((acc, f) => {
+      //   return (
+      //     acc +
+      //     [0, 1, 2, 3].reduce(
+      //       (bcc, i) => bcc + f(data[g][0][i], data[f][1][i]),
+      //       0
+      //     )
+      //   );
+      // }, 0);
+
+      //   a1(data.a1[0], data.a1[1]) + b1(data.b1[0], data.b1[1]);
+      // console.log(result);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      var obj = { a: [10, 20, 30], b: { c: { d: { e: [1, 2, 3, 4] } } } };
+      var re = obj["a"];
+      var re2 = obj.a;
+      console.log("1)", re, re2);
+
+      var { c } = obj.b;
+      var { d } = c;
+      var { e: z } = d;
+      console.log("2)", z);
+
+      const {
+        b: {
+          c: {
+            d: { e },
+          },
+        },
+      } = obj;
+      console.log("3)", e);
+    </script>
+  </head>
+  <body></body>
+</html>

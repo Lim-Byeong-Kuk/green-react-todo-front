@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let obj1 = { a: 10, b: 20 };
+      let obj2 = { a: 11, b: 121 };
+      let obj3 = { a: 21, b: 221 };
+      let obj4 = { a: 31, b: 321 };
+      let list = [
+        { ...obj1, c: 200 },
+        { ...obj2, c: 3000 },
+        { ...obj3, c: 4000 },
+        { ...obj4, c: 5000 },
+      ];
+      console.log(list);
+      //{a:[10,11,21,31], b:[20,121,221,321]}
+
+      const keys = Object.keys(list[0]);
+      //   var result = { a: [], b: [], c: [] };
+
+      var result = {};
+      keys.forEach((key) => {
+        list.forEach((obj, idx) => {
+          var result_key = result[key] ? result[key] : [];
+          result = { ...result, [key]: [...result_key, list[idx][key]] };
+        });
+      });
+
+      console.log(result);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var obj1 = { a: 10, b: 20 };
+      var obj2 = { a: 11, b: 21 };
+      var list = [
+        { ...obj1, c: 200 },
+        { ...obj2, c: 3000 },
+      ];
+
+      //list = [ {a:10,b:20,c:200}, {a:11,b:21,c:3000}]
+
+      const f = (i, j) => {
+        return i[j];
+      };
+      const keys = Object.keys(list[0]);
+      let result = {};
+      for (var key of keys) {
+        var sum = 0;
+        for (var i = 0; i < list.length; i++) {
+          sum += f(list[i], key);
+          result = { ...result, [key]: sum };
+        }
+      }
+      console.log("result", result);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var fnList = [
+        () => console.log("사랑1"),
+        () => console.log("사랑2"),
+        () => console.log("사랑3"),
+        () => console.log("사랑4"),
+        () => console.log("사랑5"),
+      ];
+
+      //문1) 반복문으로 변경하고 함수 호출하여 결과 출력
+
+      var result = [1, 2, 3, 4, 5].map((i) => () => console.log("사랑" + i));
+      console.log(result);
+
+      result.forEach((j) => j());
+
+      //문2) ff 함수 내부를 구현하여 100이 ff 함수 호출 결과로 출력되도록 하세요
+      const ff = ({ page }) => {
+        return page.reduce((acc, i) => acc + i, 0);
+      };
+
+      console.log(ff({ page: [10, 20, 30, 40] }));
+
+      //문3) 짝수의 합과 홀수의 합을 {'짝수' : 짝수의 합, '홀수': 홀수의 합}
+
+      const gg = (data1, data2) => {
+        var evenSumPage = data1.page
+          .filter((i) => i % 2 == 0)
+          .reduce((acc, i) => acc + i, 0);
+        var evenSumQ = data2.z.q
+          .filter((i) => i % 2 == 0)
+          .reduce((acc, i) => acc + i, 0);
+        var oddSumPage = data1.page
+          .filter((i) => i % 2 == 1)
+          .reduce((acc, i) => acc + i, 0);
+        var oddSumQ = data2.z.q
+          .filter((i) => i % 2 == 1)
+          .reduce((acc, i) => acc + i, 0);
+
+        return { 짝수: evenSumPage + evenSumQ, 홀수: oddSumPage + oddSumQ };
+      };
+      var r = gg({ page: [10, 20, 30, 40] }, { z: { q: [2, 3, 4, 5, 6, 7] } });
+
+      console.log(r);
+    </script>
+  </body>
+</html>

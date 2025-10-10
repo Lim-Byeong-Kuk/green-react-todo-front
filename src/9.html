@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var obj1 = { a: 10, b: 20 };
+      var obj2 = { a: 11, b: 21 };
+      var list = [
+        { ...obj1, c: 200 },
+        { ...obj2, c: 3000 },
+      ];
+      console.log(list);
+      // {a:10+11, b:20+21, c:200+3000}
+      var objs = [obj1, obj2];
+      const keys = Object.keys(list[0]);
+      console.log("keys", keys);
+
+      //  list = [ {a:10, b:20, c:200}, {a:11, b:21, c:3000} ];
+
+      //reduce 이용
+      aSum = list.reduce((acc, i) => acc + i.a, 0);
+      bSum = list.reduce((acc, i) => acc + i.b, 0);
+      cSum = list.reduce((acc, i) => acc + i.c, 0);
+
+      var result = { a: aSum, b: bSum, c: cSum };
+      console.log("result", result);
+
+      // key 를 이용, reduce이용
+      var result2 = {};
+      keys.forEach((key) => {
+        result2 = {
+          ...result2,
+          [key]: list.reduce((acc, i) => acc + i[key], 0),
+        };
+      });
+      console.log("result2", result2);
+    </script>
+  </body>
+</html>

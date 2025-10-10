@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const rr = (i) => i["b"];
+      //문1) 위의 코드는 그대로 놔두고
+      //rr함수를 호출하고 "증오합니다" 출력
+
+      console.log(rr({ b: "증오합니다" }));
+
+      //문2)
+      const vv = (z, j) => {
+        //여기를 작성하고 j에는 배열이 들어옵니다 , z에는 숫자 하나가 들어옵니다
+        //여기 코드를 작성하세요 숫자 하나의 j배열의 각각의 곱한 결과를 다 더한 결과를 반환함
+
+        return j.reduce((acc, i) => acc + i * z, 0);
+      };
+
+      console.log(vv(3, [1, 2, 3, 4, 5]));
+
+      //문3)
+      //위에서 만든 함수에 zz에서 하나씩 꺼내어 vv 함수 호출시 첫번째 인자로 전달함
+      var zz = [1, 2, 3, 4, 5];
+
+      zz.forEach((z) => console.log(vv(z, [1, 2, 3, 4, 5])));
+
+      //문4)
+      var qq = [10, 20, 30, 40, 50];
+      var zz = [1, 2, 3, 4, 5];
+      var result = [];
+
+      var flat = [...qq, ...zz];
+      var qt = [];
+      console.log(flat);
+      for (let i = 0; i < 10; i++) {
+        qt = [...qt, vv(i + 1, qq)];
+      }
+      console.log(qt);
+    </script>
+  </body>
+</html>
