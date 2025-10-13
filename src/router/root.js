@@ -4,11 +4,16 @@ import todoRouter from "./todoRouter";
 import ScoreIndexPage from "../pages/scores/ScoreIndexPage";
 import scoreRouter from "./scoreRouter";
 import ProductComponent from "../product/ProductComponent";
+import productRouter from "./productRouter";
+import ListPage from "../pages/products/ListPage";
+import addressRouter from "./addressRouter";
 
 const { createBrowserRouter } = require("react-router-dom");
 const Loading = <div>Loading...</div>;
 const Main = lazy(() => import("../pages/MainPage"));
 const TodoIndex = lazy(() => import("../pages/todo/IndexPage"));
+const ProductsIndex = lazy(() => import("../pages/products/IndexPage"));
+const AddressIndex = lazy(() => import("../pages/address/IndexPage"));
 
 const root = createBrowserRouter([
   {
@@ -46,12 +51,22 @@ const root = createBrowserRouter([
     children: scoreRouter(),
   },
   {
-    path: "product",
+    path: "products",
     element: (
       <Suspense fallback={Loading}>
-        <ProductComponent />
+        <ProductsIndex />
       </Suspense>
     ),
+    children: productRouter(),
+  },
+  {
+    path: "address",
+    element: (
+      <Suspense fallback={Loading}>
+        <AddressIndex />
+      </Suspense>
+    ),
+    children: addressRouter(),
   },
 ]);
 

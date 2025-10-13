@@ -1,0 +1,15 @@
+import React, { useCallback } from "react";
+import BasicLayout from "../../layouts/BasicLayout";
+import { Outlet, useNavigate } from "react-router-dom";
+import AddComponent from "../../components/products/AddComponent";
+
+const AddPage = () => {
+  return (
+    <div className="p-4 w-full bg-white">
+      <div className="text-3xl font-extrabold">Products AddPage</div>
+      <AddComponent />
+    </div>
+  );
+};
+
+export default AddPage;
