@@ -1,12 +1,18 @@
 import React, { useRef, useState } from "react";
 import { postAdd } from "../../api/productApi";
+import FetchingModal from "../common/FetchingModal";
+import ResultModal from "../common/ResultModal";
+import useCustomMove from "../../hooks/useCustomMove";
 
 const initState = { pname: "", pdesc: "", price: 0, files: [] };
 
 const AddComponent = () => {
   const [product, setProduct] = useState({ ...initState });
+  const [fetching, setFetching] = useState(false);
+  const [result, setResult] = useState(null);
 
   const uploadRef = useRef();
+  const { moveToList } = useCustomMove();
 
   const handleChangeProduct = (e) => {
     const { name, value } = e.target;
@@ -20,19 +26,37 @@ const AddComponent = () => {
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
+      formData.append("files", files[i]); //{files:[Multipart, <Multipart> ]}
     }
     //other data
     formData.append("pname", product.pname);
     formData.append("pdesc", product.pdesc);
     formData.append("price", product.price);
     console.log(formData);
-
-    postAdd(formData);
+    setFetching(true);
+    postAdd(formData).then((data) => {
+      console.log("데이터 추가후 : ", data);
+      setFetching(false);
+      setResult(data.result);
+    });
   };
 
+  const closeModal = () => {
+    setResult(null);
+    moveToList({ page: 1 });
+  };
   return (
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
+      {fetching ? <FetchingModal></FetchingModal> : <></>}
+      {result ? (
+        <ResultModal
+          title={"제품 추가 결과"}
+          content={`${result} 번 등록 완료`}
+          callbackFn={closeModal}
+        ></ResultModal>
+      ) : (
+        <></>
+      )}
       <div className="flex justify-center">
         <div className="relative mb-4 flex w-full flex-wrap items-stretch">
           <div className="w-1/5 p-6 text-right font-bold">Product Name</div>
