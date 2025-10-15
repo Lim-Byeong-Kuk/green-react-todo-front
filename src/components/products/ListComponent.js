@@ -61,7 +61,7 @@ const ListComponent = ({ tno }) => {
                   <img
                     alt="product"
                     className="m-auto rounded w-60"
-                    src={`${host}/api/product/view/s_${product.uploadFileNames[0]}`}
+                    src={`${host}/api/products/view/s_${product.uploadFileNames[0]}`}
                     // src={`${host}/api/products/view/s_`}
                   />
                 </div>
