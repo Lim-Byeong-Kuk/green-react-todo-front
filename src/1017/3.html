@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var arr = [];
+      for (let i = 0; i < 20; i++) {
+        arr.push("" + Math.random() * 100);
+      }
+      console.log(arr);
+      console.log(arr[0].split("."));
+
+      //정수만 잘라서 다 더한 결과를 출력
+
+      console.log(Number("34.67"));
+
+      var sum0 = 0;
+      for (let i = 0; i < 20; i++) {
+        sum0 += Number(arr[i].split(".")[0]);
+      }
+      console.log(sum0);
+
+      var sum = arr.reduce((acc, i) => Number(i.split(".")[0]) + acc, 0);
+      console.log(sum);
+    </script>
+  </body>
+</html>

@@ -7,6 +7,7 @@ import ProductComponent from "../product/ProductComponent";
 import productRouter from "./productRouter";
 import ListPage from "../pages/products/ListPage";
 import addressRouter from "./addressRouter";
+import memberRouter from "./memberRouter";
 
 const { createBrowserRouter } = require("react-router-dom");
 const Loading = <div>Loading...</div>;
@@ -67,6 +68,10 @@ const root = createBrowserRouter([
       </Suspense>
     ),
     children: addressRouter(),
+  },
+  {
+    path: "member",
+    children: memberRouter(),
   },
 ]);
 
