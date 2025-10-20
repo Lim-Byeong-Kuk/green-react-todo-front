@@ -4,6 +4,7 @@ import { login, loginPostAsync } from "../../slices/loginSlice";
 import { addListener } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import useCustomLogin from "../../hooks/useCustomLogin";
+import KakaoLoginComponent from "./KakaoLoginComponent";
 
 const initState = {
   email: "",
@@ -22,22 +23,6 @@ const LoginComponent = () => {
   };
 
   const handleClickLogin = (e) => {
-    //dispatch(login(loginParam)) // 동기화된 호출
-    // loginSlice 의 비동기 호출
-    // dispatch(loginPostAsync(loginParam))
-    //   .unwrap()
-    //   .then((data) => {
-    //     console.log("after unwrap....");
-    //     console.log(data);
-    //     if (data.error) {
-    //       alert("이메일과 패스워드를 다시 확인하세요");
-    //     } else {
-    //       alert("로그인 성공");
-    //       //뒤로 가기 했을 때 로그인 화면을 볼 수 없게 { replace: true }
-    //       navigate({ pathname: `/` }, { replace: true });
-    //     }
-    //   });
-
     doLogin(loginParam) // loginSlice 의 비동기 호출
       .then((data) => {
         console.log(data);
@@ -95,6 +80,7 @@ const LoginComponent = () => {
           </div>
         </div>
       </div>
+      <KakaoLoginComponent />
     </div>
   );
 };

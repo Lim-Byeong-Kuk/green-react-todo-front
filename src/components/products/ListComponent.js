@@ -7,6 +7,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import PageComponent from "../common/PageComponent";
 import FetchingModal from "../common/FetchingModal";
 import { API_SERVER_HOST } from "../../api/todoApi";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const initState = {
   dtoList: [],
@@ -23,20 +24,26 @@ const initState = {
 
 const ListComponent = ({ tno }) => {
   const { page, size, refresh, moveToRead, moveToList } = useCustomMove();
+  const { exceptionHandle } = useCustomLogin();
   const [serverData, setServerData] = useState(initState);
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(false);
   const host = API_SERVER_HOST;
 
   useEffect(() => {
+    setFetching(true);
     const list = async () => {
-      const res = await getList({ page, size });
-      const { data } = res;
-      console.log(data);
+      try {
+        const res = await getList({ page, size });
+        const { data } = res;
+        console.log(data);
 
-      setServerData(data);
-      setFetching(false);
+        setServerData(data);
+        setFetching(false);
 
-      console.log(data.dtoList);
+        console.log(data.dtoList);
+      } catch (err) {
+        exceptionHandle(err);
+      }
     };
     list();
   }, [page, size, refresh]);
