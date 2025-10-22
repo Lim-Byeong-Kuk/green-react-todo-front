@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import { getOne, postAdd } from "../../api/productApi";
+import React, { useEffect, useState } from "react";
+import { API_SERVER_HOST, getOne, postAdd } from "../../api/productApi";
 import FetchingModal from "../common/FetchingModal";
 import ResultModal from "../common/ResultModal";
 import useCustomMove from "../../hooks/useCustomMove";
-import { API_SERVER_HOST } from "../../api/todoApi";
+
 import { useParams } from "react-router-dom";
+import useCustomCart from "../../hooks/useCustomCart";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const initState = {
   pno: 0,
@@ -19,9 +21,11 @@ const ReadComponent = () => {
   const [product, setProduct] = useState({ ...initState });
   const { moveToList, moveToModify } = useCustomMove();
   const [fetching, setFetching] = useState(false);
-
-  //sfd
   const { pno } = useParams();
+  //장바구니 기능
+  const { changeCart, cartItems } = useCustomCart();
+  //로그인 정보
+  const { loginState } = useCustomLogin();
 
   const [result, setResult] = useState(null);
 
@@ -35,6 +39,21 @@ const ReadComponent = () => {
     };
     readOne();
   }, [pno]);
+
+  const handleClickAddCart = () => {
+    let qty = 1;
+    const addedItem = cartItems.filter((item) => item.pno === parseInt(pno))[0];
+
+    if (addedItem) {
+      if (
+        window.confirm("이미 추가된 상품입니다. 추가하시겠습니까?") === false
+      ) {
+        return;
+      }
+      qty = addedItem.qty + 1;
+    }
+    changeCart({ email: loginState.email, pno: pno, qty: qty });
+  };
 
   return (
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
@@ -91,6 +110,13 @@ const ReadComponent = () => {
 
       {/* 버튼 */}
       <div className="flex justify-end p-4">
+        <button
+          type="button"
+          className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-green-500"
+          onClick={handleClickAddCart}
+        >
+          Add Cart
+        </button>
         <button
           type="button"
           className="inline-block rounded p-4 m-2 text-xl w-32 text-white bg-red-500"
