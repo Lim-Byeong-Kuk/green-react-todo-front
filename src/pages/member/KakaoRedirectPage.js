@@ -27,9 +27,9 @@ const KakaoRedirectPage = () => {
         getMemberWithAccessToken(accessToken).then((memberInfo) => {
           console.log("-------------------");
           console.log(memberInfo); // <- backend에서 보내준 유저정보 claims
-          dispatch(login(memberInfo));
+          dispatch(login(memberInfo)); // store 에 저장
           if (memberInfo && !memberInfo.social) {
-            // 소셜회원이 아니라면
+            console.log("소셜회원이 아닌 경우");
             moveToPath("/");
           } else {
             moveToPath("/member/modify");

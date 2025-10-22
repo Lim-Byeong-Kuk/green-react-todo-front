@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { modifyMember } from "../../api/memberApi";
 import useCustomLogin from "../../hooks/useCustomLogin";
+import ResultModal from "../common/ResultModal";
 
 const initState = { email: "", pw: "", nickname: "" };
 
@@ -35,6 +36,16 @@ const ModifyComponent = () => {
     <>
       <div className="text-xl">Member Modify</div>
       <div className="mt-6">
+        {result ? (
+          <ResultModal
+            title="회원정보"
+            content="정보수정완료"
+            callbackFn={closeModal}
+          ></ResultModal>
+        ) : (
+          <></>
+        )}
+
         <div className="flex justify-center">
           <div className="relative mb-4 flex w-full flex-wrap items-stretch">
             <div className="w-1/5 p-6 text-right font-bold">Email</div>
