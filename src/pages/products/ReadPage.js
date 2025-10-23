@@ -1,4 +1,3 @@
-import React from "react";
 import ReadComponent from "../../components/products/ReadComponent";
 
 const ReadPage = () => {

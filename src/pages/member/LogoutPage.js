@@ -1,7 +1,5 @@
-import React from "react";
 import BasicMenu from "../../components/menus/BasicMenu";
 import LogoutComponent from "../../components/member/LogoutComponent";
-import useCustomLogin from "../../hooks/useCustomLogin";
 
 const LogoutPage = () => {
   return (

@@ -1,4 +1,3 @@
-import React from "react";
 import BasicLayout from "../../layouts/BasicLayout";
 import ModifyComponent from "../../components/member/ModifyComponent";
 

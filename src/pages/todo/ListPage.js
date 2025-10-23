@@ -1,7 +1,4 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import { getList } from "../../api/todoApi";
+import { useSearchParams } from "react-router-dom";
 import ListComponent from "../../components/todo/ListComponent";
 
 const ListPage = () => {

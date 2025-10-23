@@ -1,6 +1,3 @@
-import React, { useCallback } from "react";
-import BasicLayout from "../../layouts/BasicLayout";
-import { Outlet, useNavigate } from "react-router-dom";
 import AddComponent from "../../components/products/AddComponent";
 
 const AddPage = () => {

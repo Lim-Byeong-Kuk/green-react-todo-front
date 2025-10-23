@@ -42,6 +42,7 @@ const ReadComponent = () => {
 
   const handleClickAddCart = () => {
     let qty = 1;
+
     const addedItem = cartItems.filter((item) => item.pno === parseInt(pno))[0];
 
     if (addedItem) {

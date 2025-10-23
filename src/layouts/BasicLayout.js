@@ -1,4 +1,3 @@
-import React from "react";
 import BasicMenu from "../components/menus/BasicMenu";
 import CartComponent from "../components/menus/CartComponent";
 

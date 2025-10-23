@@ -1,7 +1,5 @@
-import React, { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import useCustomLogin from "../../hooks/useCustomLogin";
-import { useDispatch, useSelector } from "react-redux";
-import { getCartItemsAsync } from "../../slices/cartSlice";
 import useCustomCart from "../../hooks/useCustomCart";
 import CartItemComponent from "../cart/CartItemComponent";
 
