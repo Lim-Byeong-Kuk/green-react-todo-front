@@ -36,13 +36,13 @@ const beforeRes = async (res) => {
   const data = res.data;
 
   if (data && data.error === "ERROR_ACCESS_TOKEN") {
-    console.log("ERROR_ACCESS_TOKEN 상황");
+    console.log("ERROR_ACCESS_TOKEN 상황, 서버로 refreshJWT 요청시도");
     const memberCookieValue = getCookie("member");
     const result = await refreshJWT(
       memberCookieValue.accessToken,
       memberCookieValue.refreshToken
     );
-    console.log("refreshJWT RESULT", result);
+    console.log("refreshJWT 요청 결과", result);
 
     memberCookieValue.accessToken = result.accessToken;
     memberCookieValue.refreshToken = result.refreshToken;
