@@ -8,6 +8,7 @@ import PageComponent from "../common/PageComponent";
 import FetchingModal from "../common/FetchingModal";
 import { API_SERVER_HOST } from "../../api/todoApi";
 import useCustomLogin from "../../hooks/useCustomLogin";
+import { useQuery } from "@tanstack/react-query";
 
 const initState = {
   dtoList: [],
@@ -23,37 +24,56 @@ const initState = {
 };
 
 const ListComponent = ({ tno }) => {
-  const { page, size, refresh, moveToRead, moveToList } = useCustomMove();
-  const { exceptionHandle } = useCustomLogin();
-  const [serverData, setServerData] = useState(initState);
-  const [fetching, setFetching] = useState(false);
   const host = API_SERVER_HOST;
+  const { page, size, refresh, moveToRead, moveToList } = useCustomMove();
+  const { exceptionHandle, moveToLoginReturn } = useCustomLogin();
+  // const [serverData, setServerData] = useState(initState);
+  // const [fetching, setFetching] = useState(false);
 
-  useEffect(() => {
-    setFetching(true);
-    const list = async () => {
-      try {
-        const res = await getList({ page, size });
-        const { data } = res;
-        console.log(data);
+  const { isFetching, data, error, isError } = useQuery({
+    queryKey: ["products/list", { page, size }],
+    queryFn: () => getList({ page, size }),
+  });
 
-        setServerData(data);
-        setFetching(false);
+  if (isError) {
+    console.log(error);
+    // exceptionHandle(error);
+    exceptionHandle(error);
+  }
 
-        console.log(data.dtoList);
-      } catch (err) {
-        exceptionHandle(err);
-      }
-    };
-    list();
-  }, [page, size, refresh]);
+  const serverData = data || initState;
+  console.log("serverData: ", serverData);
+
+  console.log("serverData.data ", serverData.data);
+  // useEffect(() => {
+  //   setFetching(true);
+  //   const list = async () => {
+  //     try {
+  //       const res = await getList({ page, size });
+  //       const { data } = res;
+  //       console.log(data);
+
+  //       setServerData(data);
+  //       setFetching(false);
+
+  //       console.log(data.dtoList);
+  //     } catch (err) {
+  //       exceptionHandle(err);
+  //     }
+  //   };
+  //   list();
+  // }, [page, size, refresh]);
+
+  if (!data) {
+    return <FetchingModal />;
+  }
 
   return (
     <div className="border-2 border-blue-100 mt-10 mr-2 ml-2">
       <h1>ProductList components</h1>
-      {fetching ? <FetchingModal /> : <></>}
+      {/* {isFetching ? <FetchingModal /> : <></>} */}
       <div className="flex flex-wrap mx-auto p-6">
-        {serverData.dtoList.map((product) => (
+        {serverData.data.dtoList.map((product) => (
           <div
             key={product.pno}
             className="w-1/2 p-1 rounded shadow-md"
@@ -85,7 +105,7 @@ const ListComponent = ({ tno }) => {
         ))}
       </div>
       <PageComponent
-        serverData={serverData}
+        serverData={serverData.data}
         movePage={moveToList}
       ></PageComponent>
     </div>

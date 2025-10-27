@@ -7,6 +7,7 @@ import useCustomMove from "../../hooks/useCustomMove";
 import { useParams } from "react-router-dom";
 import useCustomCart from "../../hooks/useCustomCart";
 import useCustomLogin from "../../hooks/useCustomLogin";
+import { useQuery } from "@tanstack/react-query";
 
 const initState = {
   pno: 0,
@@ -18,7 +19,7 @@ const initState = {
 const host = API_SERVER_HOST;
 
 const ReadComponent = () => {
-  const [product, setProduct] = useState({ ...initState });
+  // const [product, setProduct] = useState({ ...initState });
   const { moveToList, moveToModify } = useCustomMove();
   const [fetching, setFetching] = useState(false);
   const { pno } = useParams();
@@ -26,19 +27,25 @@ const ReadComponent = () => {
   const { changeCart, cartItems } = useCustomCart();
   //로그인 정보
   const { loginState } = useCustomLogin();
+  //리액트 쿼리 v5 버전 문법 : 1개의 객체로
+  const { isFetching, data: product } = useQuery({
+    queryKey: ["product", pno],
+    queryFn: () => getOne(pno),
+    enabled: !!pno,
+    staleTime: 1000 * 10,
+    retry: 1,
+  });
 
-  const [result, setResult] = useState(null);
-
-  useEffect(() => {
-    setFetching(true);
-    const readOne = async () => {
-      const data = await getOne(pno);
-      console.log("1개조회 data: ", data);
-      setProduct(data);
-      setFetching(false);
-    };
-    readOne();
-  }, [pno]);
+  // useEffect(() => {
+  //   setFetching(true);
+  //   const readOne = async () => {
+  //     const data = await getOne(pno);
+  //     console.log("1개조회 data: ", data);
+  //     setProduct(data);
+  //     setFetching(false);
+  //   };
+  //   readOne();
+  // }, [pno]);
 
   const handleClickAddCart = () => {
     let qty = 1;
@@ -56,9 +63,17 @@ const ReadComponent = () => {
     changeCart({ email: loginState.email, pno: pno, qty: qty });
   };
 
+  // if (!product) {
+  //   return <div> 존재하지 않는 상품 정보입니다.</div>;
+  // }
+
+  if (!product) {
+    return <FetchingModal />;
+  }
+
   return (
     <div className="border-2 border-sky-200 mt-10 m-2 p-4">
-      {fetching ? <FetchingModal></FetchingModal> : <></>}
+      {/* {isFetching ? <FetchingModal /> : <></>} */}
 
       {/* PNO */}
       <div className="flex justify-center mt-10">
